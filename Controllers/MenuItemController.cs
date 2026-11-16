@@ -1,35 +1,45 @@
 using AddisEats.Api.Models;
+using AddisEats.Api.Services.MenuItemServices;
 using Microsoft.AspNetCore.Mvc;
+
 namespace AddisEats.Api.Controllers;
 
-[ApiController]
+[ApiController]  
 [Route("api/v1/[Controller]")]
 
-public class MenuItemController : ControllerBase
-{
-    List<MenuItem> menuItems = new List<MenuItem>
-        {
-    new MenuItem { Id = 1, Name = "Cheeseburger", Category = "Main Course", Price= 10.5m},
-    new MenuItem { Id = 2, Name = "Caesar Salad", Category = "Appetizer", Price= 20.5m},
-    new MenuItem { Id = 3, Name = "Chocolate Cake", Category = "Dessert", Price= 30.5m }
-};
+public class MenuItemController : ControllerBase{
+    private IMenuInterfaceService _menuItemService;
+    // variable 
 
-[HttpGet]
-public IActionResult GetAll()
+    public MenuItemController(IMenuInterfaceService menuItemSerice)
     {
-        return Ok(menuItems);
+        _menuItemService = menuItemSerice;
+    }
+[HttpGet]
+public IActionResult GetAll([FromQuery] string? category, [FromQuery] int? upPrice)
+    {
+        var result = _menuItemService.GetAll(category, upPrice);
+        return Ok(result);
     }
 
 [HttpGet("{id}")]
 public IActionResult GetById(int id)
     {
-        var menuItem = menuItems.Find(item => item.Id == id);
-
-        if (menuItem == null)
+        var result = _menuItemService.GetById(id);
+        if (result == null)
         {
             return NotFound();
         }
-
-        return Ok(menuItem);
+        
+        return Ok(result);
     }
 }
+
+
+
+// builder.Services.AddScoped<//   IMenuInterfaceService, MenuItemService >();
+
+// IMenuInterfaceService request from Controller create and give back the asociate object 
+// new MenuItemController(new MenuService());
+
+// menuItemSerice = 

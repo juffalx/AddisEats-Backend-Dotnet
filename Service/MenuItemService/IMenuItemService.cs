@@ -4,7 +4,8 @@ namespace AddisEats.Api.Services.MenuItemServices;
 
 public interface IMenuInterfaceService
 {
-    List<MenuItem> GetAll();
+    List<MenuItem> GetAll(string? category,  int? upPrice);
 
     MenuItem? GetById(int id);
+
 }

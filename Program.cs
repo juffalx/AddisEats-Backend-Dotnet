@@ -1,10 +1,12 @@
-﻿
+﻿using AddisEats.Api.Services.MenuItemServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Register services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IMenuInterfaceService, MenuItemService>();
 
 
 var app = builder.Build();
