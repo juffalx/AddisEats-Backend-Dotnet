@@ -1,0 +1,6 @@
+@AddisEats_HostAddress = http://localhost:5432
+
+GET {{AddisEats_HostAddress}}/MenuItem/
+Accept: application/json
+
+###
