@@ -1,29 +1,43 @@
-// using AddisEats.Api.Services.RestaurantServices;
-// using AddisEats.Api.Mapper;
-// using AddisEats.Api.DTOs;
-// using Microsf;
-
-// // ሚቀር ኮድ አለ 
+using AddisEats.Api.Service.RestaurantServices;
+using AddisEats.Api.Mappers;
+using AddisEats.Api.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 
-// private readonly IRestaurantService _restaurantService;
+namespace AddisEats.Api.Controllers;
 
-// public RestaurantController(IRestaurantService restaurantService)
-// {
-//     _restaurantService = restaurantService;
-// }
+[ApiController]
+[Route("api/v1/[Controller]")]
 
-// [httpGet("{id}")]
-// public IActionResult GetRestaurantById(int id)
-// {
-//     var restaurant = _restaurantService.GetById(id);
+public class RestaurantController : ControllerBase
+{
 
-//     if(restaurant == null)
-//     {
-//         return NotFound();
-//     }
-// }
+    private readonly IRestaurantServices _restaurantService;
 
-// [httpGet()]
+    public RestaurantController(IRestaurantServices restaurantService)
+    {
+        _restaurantService = restaurantService;
+    }
 
-// }
+    [HttpGet("{id}")]
+    public ActionResult<IEnumerable<IRestaurantServices>> GetRestaurantById(int id)
+    {
+        var restaurant = _restaurantService.GetById(id);
+
+        if (restaurant == null)
+        {
+            return NotFound();
+        }
+        return Ok(restaurant);
+    }
+
+ [HttpGet()]
+    public ActionResult<IEnumerable<IRestaurantServices>> GetAllRestaurant([FromQuery] string? address, [FromQuery] int page, [FromQuery] int pageSize)
+    {
+        var restorantResult = _restaurantService.GetAll(address,page,pageSize);
+        var restorantDTOs = restorantResult.Select(r => r.ToDTO()).ToList();
+
+        return Ok(restorantDTOs);
+    }
+
+}
