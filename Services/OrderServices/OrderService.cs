@@ -5,11 +5,13 @@ namespace AddisEats.Api.Services.OrderService;
 
 public class OrderService : IOrderService
 {
-    private readonly List<Order> _order = new List<Order>();
+    private static readonly List<Order> _order = new List<Order>();
+
     private static int _nextId = 1;
     public Order? GetById(int id)
     {
-        return _order.FirstOrDefault(o => o.Id == id);
+        var result =  _order.FirstOrDefault(o => o.Id == id);
+        return result;
     }
 
 
