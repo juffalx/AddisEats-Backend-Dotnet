@@ -3,7 +3,6 @@ namespace AddisEats.Api.DTOs;
 public record RestaurantDTO(
     int Id,
     string Name,
-    string Address,
-    string Phone,
+    string Address,    
     bool IsActive
 );

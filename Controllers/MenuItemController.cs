@@ -8,7 +8,7 @@ namespace AddisEats.Api.Controllers;
 [Route("api/v1/[Controller]")]
 
 public class MenuItemController : ControllerBase{
-    private IMenuInterfaceService _menuItemService;
+    private readonly IMenuInterfaceService _menuItemService;
     // variable 
 
     public MenuItemController(IMenuInterfaceService menuItemSerice)
@@ -22,7 +22,7 @@ public IActionResult GetAll([FromQuery] string? category, [FromQuery] int? upPri
         return Ok(result);
     }
 
-[HttpGet("{id}")]
+[HttpGet("{id:int:min(1)}")]
 public IActionResult GetById(int id)
     {
         var result = _menuItemService.GetById(id);

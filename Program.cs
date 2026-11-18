@@ -1,5 +1,6 @@
 ﻿using AddisEats.Api.Services.MenuItemServices;
 using AddisEats.Api.Service.RestaurantServices;
+using AddisEats.Api.Services.OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IMenuInterfaceService, MenuItemService>();
 builder.Services.AddScoped<IRestaurantServices, RestaurantService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var freeAboveEtb = builder.Configuration.GetValue<string>("Delivery:FreeAboveEtb");
 Console.WriteLine("free above etb");

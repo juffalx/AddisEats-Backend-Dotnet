@@ -32,12 +32,19 @@ public class RestaurantController : ControllerBase
     }
 
  [HttpGet()]
-    public ActionResult<IEnumerable<IRestaurantServices>> GetAllRestaurant([FromQuery] string? address, [FromQuery] int page, [FromQuery] int pageSize)
+    public IActionResult GetAllRestaurant([FromQuery] RestaurantQuery query)
     {
-        var restorantResult = _restaurantService.GetAll(address,page,pageSize);
-        var restorantDTOs = restorantResult.Select(r => r.ToDTO()).ToList();
+        var restorantResult = _restaurantService.GetAll(query);
 
-        return Ok(restorantDTOs);
+        return Ok(restorantResult);
+    }
+
+    [HttpGet("active")]
+    public IActionResult GetAllActiveRestaurant()
+    {
+        var restaurants = _restaurantService.GetAllActive();
+
+        return Ok(restaurants);
     }
 
 }

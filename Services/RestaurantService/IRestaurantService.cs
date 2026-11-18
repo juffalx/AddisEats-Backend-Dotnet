@@ -1,4 +1,4 @@
-using AddisEats.Api.Data;
+using AddisEats.Api.DTOs;
 using AddisEats.Api.Models;
 
  namespace  AddisEats.Api.Service.RestaurantServices;
@@ -6,5 +6,8 @@ using AddisEats.Api.Models;
 public interface IRestaurantServices
 {
     Restaurant? GetById(int id);
-    List<Restaurant> GetAll(string? address, int page, int pageSize);
+    PaginatedResultDTO<RestaurantDTO> GetAll(RestaurantQuery query);
+    List<RestaurantDTO> GetAllActive();
 }
+
+

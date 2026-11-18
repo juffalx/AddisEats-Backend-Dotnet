@@ -11,7 +11,6 @@ namespace AddisEats.Api.Mappers;
                 restaurant.Id,
                 restaurant.Name,
                 restaurant.Address,
-                restaurant.Phone,
                 restaurant.IsActive
            );
         }
